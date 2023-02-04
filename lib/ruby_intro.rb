@@ -52,15 +52,53 @@ end
 
 def hello(name)
   # YOUR CODE HERE
+  return "Hello, " + name
 end
 
 def starts_with_consonant?(string)
   # YOUR CODE HERE
+  if string.length() == 0
+    return false
+  end
+
+  first_char = string[0]
+  if !first_char.match?(/[A-Za-z]/)
+    return false
+  end
+
+  vowels = Set["a", "e", "i", "o", "u"]
+  return !vowels.include?(first_char.downcase)
 end
 
 def binary_multiple_of_4?(string)
   # YOUR CODE HERE
+  if string.length == 1 && string[0] == "0"
+    return true
+  end
+
+  if string.length < 3
+      return false
+  end
+
+  if string[-1] != "0" || string[-2] != "0"
+    return false
+  end
+
+
+  num_ones = 0
+  string.split('').each { |char|
+    if char != "0" && char != "1"
+      return false
+    end
+
+    num_ones += 1 if char == "1"
+  }
+
+  return true
+
 end
+
+puts binary_multiple_of_4?("0101010101010100")
 
 # Part 3
 
