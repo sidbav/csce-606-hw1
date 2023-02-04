@@ -16,86 +16,70 @@ def sum(arr)
   # total
 
   # Built in functionality
-  arr.sum()
+  arr.sum
 end
 
 def max_2_sum(arr)
-  if arr.length() == 0
-    return 0
-  elsif arr.length() == 1
-    return arr[0]
+  case arr.length
+  when 0
+    0
+  when 1
+    arr[0]
   else
-    largest = arr.sort[-1]
+    largest = arr.max
     second_largest = arr.sort[-2]
-    return largest + second_largest
+    largest + second_largest
   end
 end
 
 def sum_to_n?(arr, number)
-  if arr.length() < 2
-    return false
-  else
-    target_values = Set[]
-    for val in arr do
-      diff = number - val
-      if target_values.include?(diff)
-        return true
-      end
-      target_values.add(val)
-    end
+  return false if arr.length < 2
 
-    return false
+  target_values = Set[]
+  arr.each do |val|
+    diff = number - val
+    return true if target_values.include?(diff)
+
+    target_values.add(val)
   end
+
+  false
 end
 
 # Part 2
 
 def hello(name)
   # YOUR CODE HERE
-  return "Hello, " + name
+  "Hello, #{name}"
 end
 
 def starts_with_consonant?(string)
   # YOUR CODE HERE
-  if string.length() == 0
-    return false
-  end
+  return false if string.empty?
 
   first_char = string[0]
-  if !first_char.match?(/[A-Za-z]/)
-    return false
-  end
+  return false unless first_char.match?(/[A-Za-z]/)
 
-  vowels = Set["a", "e", "i", "o", "u"]
-  return !vowels.include?(first_char.downcase)
+  vowels = Set['a', 'e', 'i', 'o', 'u']
+  !vowels.include?(first_char.downcase)
 end
 
 def binary_multiple_of_4?(string)
   # YOUR CODE HERE
-  if string.length == 1 && string[0] == "0"
-    return true
-  end
+  return true if string.length == 1 && string[0] == '0'
 
-  if string.length < 3
-      return false
-  end
+  return false if string.length < 3
 
-  if string[-1] != "0" || string[-2] != "0"
-    return false
-  end
-
+  return false if string[-1] != '0' || string[-2] != '0'
 
   num_ones = 0
-  string.split('').each { |char|
-    if char != "0" && char != "1"
-      return false
-    end
+  string.split('').each do |char|
+    return false if char != '0' && char != '1'
 
-    num_ones += 1 if char == "1"
-  }
+    num_ones += 1 if char == '1'
+  end
 
-  return true
-
+  true
 end
 
 # Part 3
@@ -103,26 +87,19 @@ end
 # Object representing a book
 class BookInStock
   # YOUR CODE HERE
-  def initialize(isbn_, price_) # optional argument
-    if isbn_.length == 0
-      raise(ArgumentError, 'ISBN cannot be empty')
-    end
+  def initialize(isbn_, price_)
+    raise(ArgumentError, 'ISBN cannot be empty') if isbn_.empty?
 
-    if price_ <= 0
-      raise(ArgumentError, 'Price cannot be less than or equal to 0')
-    end
+    raise(ArgumentError, 'Price cannot be less than or equal to 0') if price_ <= 0
 
     @isbn = isbn_
     @price = price_
-
   end
 
-  attr_accessor :isbn
-  attr_accessor :price
+  attr_accessor :isbn, :price
 
-  def price_as_string()
-    price_str = sprintf('%.2f', @price)
-    return '$' + price_str
+  def price_as_string
+    price_str = format('%.2f', @price)
+    "$#{price_str}"
   end
-
 end
