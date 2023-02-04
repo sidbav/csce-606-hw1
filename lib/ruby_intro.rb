@@ -70,13 +70,10 @@ def binary_multiple_of_4?(string)
 
   return false if string.length < 3
 
-  return false if string[-1] != '0' || string[-2] != '0'
+  return false unless string[-2..].match?(/00/)
 
-  num_ones = 0
   string.split('').each do |char|
-    return false if char != '0' && char != '1'
-
-    num_ones += 1 if char == '1'
+    return false unless char.match?(/[0-1]/)
   end
 
   true
