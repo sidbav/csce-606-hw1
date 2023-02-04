@@ -98,11 +98,31 @@ def binary_multiple_of_4?(string)
 
 end
 
-puts binary_multiple_of_4?("0101010101010100")
-
 # Part 3
 
 # Object representing a book
 class BookInStock
   # YOUR CODE HERE
+  def initialize(isbn_, price_) # optional argument
+    if isbn_.length == 0
+      raise(ArgumentError, 'ISBN cannot be empty')
+    end
+
+    if price_ <= 0
+      raise(ArgumentError, 'Price cannot be less than or equal to 0')
+    end
+
+    @isbn = isbn_
+    @price = price_
+
+  end
+
+  attr_accessor :isbn
+  attr_accessor :price
+
+  def price_as_string()
+    price_str = sprintf('%.2f', @price)
+    return '$' + price_str
+  end
+
 end
